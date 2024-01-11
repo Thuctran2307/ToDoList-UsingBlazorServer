@@ -1,0 +1,197 @@
+{
+  "Files": [
+    {
+      "Id": "D:\\c#\\New\\wwwroot\\css\\Connect.min.css",
+      "PackagePath": "staticwebassets\\css\\Connect.min.css"
+    },
+    {
+      "Id": "D:\\c#\\New\\wwwroot\\css\\animate.min.css",
+      "PackagePath": "staticwebassets\\css\\animate.min.css"
+    },
+    {
+      "Id": "D:\\c#\\New\\wwwroot\\css\\app.css",
+      "PackagePath": "staticwebassets\\css\\app.css"
+    },
+    {
+      "Id": "D:\\c#\\New\\wwwroot\\css\\appv2.10.css",
+      "PackagePath": "staticwebassets\\css\\appv2.10.css"
+    },
+    {
+      "Id": "D:\\c#\\New\\wwwroot\\css\\appv2.10.min.css",
+      "PackagePath": "staticwebassets\\css\\appv2.10.min.css"
+    },
+    {
+      "Id": "D:\\c#\\New\\wwwroot\\css\\appv2.10.scss",
+      "PackagePath": "staticwebassets\\css\\appv2.10.scss"
+    },
+    {
+      "Id": "D:\\c#\\New\\wwwroot\\css\\bingmap.css",
+      "PackagePath": "staticwebassets\\css\\bingmap.css"
+    },
+    {
+      "Id": "D:\\c#\\New\\wwwroot\\css\\bingmap.min.css",
+      "PackagePath": "staticwebassets\\css\\bingmap.min.css"
+    },
+    {
+      "Id": "D:\\c#\\New\\wwwroot\\css\\bingmap.scss",
+      "PackagePath": "staticwebassets\\css\\bingmap.scss"
+    },
+    {
+      "Id": "D:\\c#\\New\\wwwroot\\css\\bulma.min.css",
+      "PackagePath": "staticwebassets\\css\\bulma.min.css"
+    },
+    {
+      "Id": "D:\\c#\\New\\wwwroot\\css\\component.css",
+      "PackagePath": "staticwebassets\\css\\component.css"
+    },
+    {
+      "Id": "D:\\c#\\New\\wwwroot\\css\\connect.css",
+      "PackagePath": "staticwebassets\\css\\connect.css"
+    },
+    {
+      "Id": "D:\\c#\\New\\wwwroot\\css\\connect.scss",
+      "PackagePath": "staticwebassets\\css\\connect.scss"
+    },
+    {
+      "Id": "D:\\c#\\New\\wwwroot\\css\\custom.css",
+      "PackagePath": "staticwebassets\\css\\custom.css"
+    },
+    {
+      "Id": "D:\\c#\\New\\wwwroot\\css\\custom.min.css",
+      "PackagePath": "staticwebassets\\css\\custom.min.css"
+    },
+    {
+      "Id": "D:\\c#\\New\\wwwroot\\css\\custom.scss",
+      "PackagePath": "staticwebassets\\css\\custom.scss"
+    },
+    {
+      "Id": "D:\\c#\\New\\wwwroot\\css\\dragdrop.css",
+      "PackagePath": "staticwebassets\\css\\dragdrop.css"
+    },
+    {
+      "Id": "D:\\c#\\New\\wwwroot\\css\\effect.css",
+      "PackagePath": "staticwebassets\\css\\effect.css"
+    },
+    {
+      "Id": "D:\\c#\\New\\wwwroot\\css\\icon.material.css",
+      "PackagePath": "staticwebassets\\css\\icon.material.css"
+    },
+    {
+      "Id": "D:\\c#\\New\\wwwroot\\css\\iconmaterial\\MaterialIcons-Regular.ttf",
+      "PackagePath": "staticwebassets\\css\\iconmaterial\\MaterialIcons-Regular.ttf"
+    },
+    {
+      "Id": "D:\\c#\\New\\wwwroot\\css\\iconmaterial\\MaterialIconsOutlined-Regular.otf",
+      "PackagePath": "staticwebassets\\css\\iconmaterial\\MaterialIconsOutlined-Regular.otf"
+    },
+    {
+      "Id": "D:\\c#\\New\\wwwroot\\css\\iconmaterial\\MaterialIconsRound-Regular.otf",
+      "PackagePath": "staticwebassets\\css\\iconmaterial\\MaterialIconsRound-Regular.otf"
+    },
+    {
+      "Id": "D:\\c#\\New\\wwwroot\\css\\iconmaterial\\MaterialIconsSharp-Regular.otf",
+      "PackagePath": "staticwebassets\\css\\iconmaterial\\MaterialIconsSharp-Regular.otf"
+    },
+    {
+      "Id": "D:\\c#\\New\\wwwroot\\css\\iconmaterial\\MaterialIconsTwoTone-Regular.otf",
+      "PackagePath": "staticwebassets\\css\\iconmaterial\\MaterialIconsTwoTone-Regular.otf"
+    },
+    {
+      "Id": "D:\\c#\\New\\wwwroot\\css\\index.css",
+      "PackagePath": "staticwebassets\\css\\index.css"
+    },
+    {
+      "Id": "D:\\c#\\New\\wwwroot\\css\\kpis.css",
+      "PackagePath": "staticwebassets\\css\\kpis.css"
+    },
+    {
+      "Id": "D:\\c#\\New\\wwwroot\\css\\mail\\mail-component.scss",
+      "PackagePath": "staticwebassets\\css\\mail\\mail-component.scss"
+    },
+    {
+      "Id": "D:\\c#\\New\\wwwroot\\css\\mail\\mail-nav.scss",
+      "PackagePath": "staticwebassets\\css\\mail\\mail-nav.scss"
+    },
+    {
+      "Id": "D:\\c#\\New\\wwwroot\\css\\mail\\mail.css",
+      "PackagePath": "staticwebassets\\css\\mail\\mail.css"
+    },
+    {
+      "Id": "D:\\c#\\New\\wwwroot\\css\\mail\\mail.min.css",
+      "PackagePath": "staticwebassets\\css\\mail\\mail.min.css"
+    },
+    {
+      "Id": "D:\\c#\\New\\wwwroot\\css\\mail\\mail.scss",
+      "PackagePath": "staticwebassets\\css\\mail\\mail.scss"
+    },
+    {
+      "Id": "D:\\c#\\New\\wwwroot\\css\\meeting.css",
+      "PackagePath": "staticwebassets\\css\\meeting.css"
+    },
+    {
+      "Id": "D:\\c#\\New\\wwwroot\\css\\mention.css",
+      "PackagePath": "staticwebassets\\css\\mention.css"
+    },
+    {
+      "Id": "D:\\c#\\New\\wwwroot\\css\\mention.min.css",
+      "PackagePath": "staticwebassets\\css\\mention.min.css"
+    },
+    {
+      "Id": "D:\\c#\\New\\wwwroot\\css\\mention.scss",
+      "PackagePath": "staticwebassets\\css\\mention.scss"
+    },
+    {
+      "Id": "D:\\c#\\New\\wwwroot\\css\\mobile.css",
+      "PackagePath": "staticwebassets\\css\\mobile.css"
+    },
+    {
+      "Id": "D:\\c#\\New\\wwwroot\\css\\profile.css",
+      "PackagePath": "staticwebassets\\css\\profile.css"
+    },
+    {
+      "Id": "D:\\c#\\New\\wwwroot\\css\\profile.min.css",
+      "PackagePath": "staticwebassets\\css\\profile.min.css"
+    },
+    {
+      "Id": "D:\\c#\\New\\wwwroot\\css\\profile.scss",
+      "PackagePath": "staticwebassets\\css\\profile.scss"
+    },
+    {
+      "Id": "D:\\c#\\New\\wwwroot\\css\\quill.bubble.css",
+      "PackagePath": "staticwebassets\\css\\quill.bubble.css"
+    },
+    {
+      "Id": "D:\\c#\\New\\wwwroot\\css\\quill.snow.css",
+      "PackagePath": "staticwebassets\\css\\quill.snow.css"
+    },
+    {
+      "Id": "D:\\c#\\New\\wwwroot\\css\\site.css",
+      "PackagePath": "staticwebassets\\css\\site.css"
+    },
+    {
+      "Id": "D:\\c#\\New\\wwwroot\\css\\storage.css",
+      "PackagePath": "staticwebassets\\css\\storage.css"
+    },
+    {
+      "Id": "D:\\c#\\New\\wwwroot\\css\\timekeeping.css",
+      "PackagePath": "staticwebassets\\css\\timekeeping.css"
+    },
+    {
+      "Id": "obj\\Debug\\net7.0\\staticwebassets\\msbuild.New.Microsoft.AspNetCore.StaticWebAssets.props",
+      "PackagePath": "build\\Microsoft.AspNetCore.StaticWebAssets.props"
+    },
+    {
+      "Id": "obj\\Debug\\net7.0\\staticwebassets\\msbuild.build.New.props",
+      "PackagePath": "build\\New.props"
+    },
+    {
+      "Id": "obj\\Debug\\net7.0\\staticwebassets\\msbuild.buildMultiTargeting.New.props",
+      "PackagePath": "buildMultiTargeting\\New.props"
+    },
+    {
+      "Id": "obj\\Debug\\net7.0\\staticwebassets\\msbuild.buildTransitive.New.props",
+      "PackagePath": "buildTransitive\\New.props"
+    }
+  ],
+  "ElementsToRemove": []
+}

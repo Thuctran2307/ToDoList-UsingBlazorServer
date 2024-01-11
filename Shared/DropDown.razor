@@ -1,0 +1,33 @@
+<div class="dropdown @(active ? "is-active" : "")">
+    <div class="dropdown-trigger" @onclick="() => active = !active">
+        <button class="button" aria-haspopup="true" aria-controls="dropdown-menu">
+            <span>Dropdown button</span>
+            <span class="icon is-small">
+                <i class="fas fa-angle-down" aria-hidden="true"></i>
+            </span>
+        </button>
+    </div>
+    <div class="dropdown-menu" id="dropdown-menu" role="menu">
+        <div class="dropdown-content">
+            @foreach (var option in Options)
+            {
+                <a href="#" class="dropdown-item" @onclick="() => SelectedValue = option.Value">@option.Text</a>
+            }
+        </div>
+    </div>
+</div>
+
+@code {
+
+    private bool active = false;
+
+    [Parameter] public List<DropdownOption> Options { get; set; }
+
+    [Parameter] public string SelectedValue { get; set; }
+
+    public class DropdownOption
+    {
+        public string Value { get; set; }
+        public string Text { get; set; }
+    }
+}
