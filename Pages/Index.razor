@@ -176,12 +176,25 @@ new DropDown.DropdownOption { Value = "option3", Text = "Option 3" }
 
     private void CancelToDo(string id)
     {
-        list_temp_todo.RemoveAt(list_temp_todo.FindIndex(x => x.id.Equals(id)));
+        try{
+            list_temp_todo.RemoveAt(list_temp_todo.FindIndex(x => x.id.Equals(id)));
+        }
+        catch(Exception e)
+        {
+            Console.WriteLine(e.Message);
+        
+        }
     }
 
     private async void UpdateToDo(string id)
     {
-        list_temp_todo.RemoveAt(list_temp_todo.FindIndex(x => x.id.Equals(id)));
         todos = await DbToDo.GetAllToDo();
+
+        try{
+            list_temp_todo.RemoveAt(list_temp_todo.FindIndex(x => x.id.Equals(id)));
+        }
+        catch(Exception e){
+            Console.WriteLine(e.Message);
+        }
     }
 }

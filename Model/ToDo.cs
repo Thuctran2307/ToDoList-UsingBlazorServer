@@ -16,6 +16,8 @@ namespace New.Model
         public string timeEnd;
         public string priority;
 
+        public DateTime createdAt;
+
 
         // contructor
 
@@ -29,6 +31,7 @@ namespace New.Model
             this.timeStart = "";
             this.timeEnd = "";
             this.priority = "";
+            this.createdAt = DateTime.Now.Date;
         }
 
         public ToDo(string userId, string title, string description, string status, string priority, string timeStart, string timeEnd)
@@ -41,6 +44,7 @@ namespace New.Model
             this.timeStart = timeStart;
             this.timeEnd = timeEnd;
             this.priority = priority;
+            this.createdAt =  DateTime.Now.Date;
         }
 
     }
