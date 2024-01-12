@@ -8,9 +8,10 @@
 
             <div class="is-flex is-align-items-center">
 
-                <h1 class="title is-5 is-secondary-40 has-text-weight-bold mb-0 mr-6">TODOLIST</h1>
-                <div class="is-flex is-align-items-center is-justify-content-space-between" style="gap: 0 16px;">
+                <h1 class="title is-secondary-40 has-text-weight-bold mb-0 mr-6 is-flex-grow-1">TODOLIST</h1>
 
+
+                <div class="is-flex is-align-items-center is-justify-content-space-between is-flex-grow-5">
                     <div>
                         <div class="dropdown is-hoverable is-left">
                             <div class="dropdown-trigger">
@@ -74,16 +75,7 @@
 
 
                     <div class="column is-narrow">
-                        <section class="col-sm-12">
-                            <div class="form-group">
-                                <div class='input-group date' id='datetimepicker'>
-                                    <input type='text' class="form-control" />
-                                    <span class="input-group-addon">
-                                        <span class="glyphicon glyphicon-calendar"></span>
-                                    </span>
-                                </div>
-                            </div>
-                        </section>
+                        datetimepicker
                     </div>
 
                 </div>
@@ -95,40 +87,38 @@
 
 
 
-    <div class="content">
-        @if (isView)
-        {
-            <Add></Add>
-        }
-        else
-        {
-            <table class="table">
+    <div class="content" style="margin-top:30px">
+        <div>
+            <table class="table is-flex is-flex-direction-column" style="gap:20px">
 
                 <thead>
-                    <tr>
-                        <th scope="col">Danh sách công việc</th>
-                        <th scope="col">Độ ưu tiên</th>
-                        <th scope="col">Bắt đầu</th>
-                        <th scope="col">Kết thúc</th>
-                        <th scope="col">Tình trạng</th>
+                    <tr class="is-flex">
+                        <th style="width: 72%;">Danh sách công việc</th>
+                        <th style="width: 7%;">Độ ưu tiên</th>
+                        <th style="width: 7%;">Bắt đầu</th>
+                        <th style="width: 7%;">Kết thúc</th>
+                        <th style="width: 7%;">Tình trạng</th>
                     </tr>
 
-                    @foreach (var item in todos)
-                    {
-                        <tr>
-                            <td>@item.title</td>
-                            <td>@item.priority</td>
-                            <td>@item.timeStart</td>
-                            <td>@item.timeEnd</td>
-                            <td>@item.status</td>
-                        </tr>
-                    }
+
                 </thead>
 
-            </table>
-        }
-    </div>
+                @foreach (var item in todos)
+                {
+                    <tr>
+                        <C_ToDo Model=item isEdit="false" OnCancel="CancelToDo" OnUpdate="UpdateToDo" > </C_ToDo>
+                    </tr>
+                }
 
+                @foreach (var item in list_temp_todo)
+                {
+                    <tr>
+                        <C_ToDo Model=item isEdit="true" OnCancel="CancelToDo" OnUpdate="UpdateToDo" > </C_ToDo>
+                    </tr>
+                }
+            </table>
+        </div>
+    </div>
 
 
 
@@ -140,7 +130,7 @@
                 </div>
             </div><!--!-->
             <div style="margin-left:auto">
-                <a @onclick="AddToDo">Thêm Việc</a>
+                <button @onclick="AddToDo" class="button is-primary">Thêm công việc</button>
             </div>
         </div>
     </div>
@@ -149,21 +139,22 @@
 </div>
 
 @code {
-    
-    
+
+
     List<DropDown.DropdownOption> optionMenu = new List<DropDown.DropdownOption>
-        {
-        new DropDown.DropdownOption { Value = "option1", Text = "Option 1" },
-        new DropDown.DropdownOption { Value = "option2", Text = "Option 2" },
-        new DropDown.DropdownOption { Value = "option3", Text = "Option 3" }
-        };
+{
+new DropDown.DropdownOption { Value = "option1", Text = "Option 1" },
+new DropDown.DropdownOption { Value = "option2", Text = "Option 2" },
+new DropDown.DropdownOption { Value = "option3", Text = "Option 3" }
+};
+
+    public bool isEdit = true;
+
+    
 
     public string? selectedValue { get; set; }
-    public bool isView = false;
-    public bool active;
     public List<Model.ToDo> todos = new List<Model.ToDo>();
-
-    
+    public List<Model.ToDo> list_temp_todo = new List<Model.ToDo>();
 
     protected async override void OnInitialized()
     {
@@ -172,7 +163,25 @@
 
     private void AddToDo()
     {
-        Console.WriteLine("Add");
-        isView = true;
+        list_temp_todo.Add(new Model.ToDo
+            {
+                title = "",
+                description = "",
+                priority = "",
+                status = "",
+                timeStart = "",
+                timeEnd = ""
+            });
+    }
+
+    private void CancelToDo(string id)
+    {
+        list_temp_todo.RemoveAt(list_temp_todo.FindIndex(x => x.id.Equals(id)));
+    }
+
+    private async void UpdateToDo(string id)
+    {
+        list_temp_todo.RemoveAt(list_temp_todo.FindIndex(x => x.id.Equals(id)));
+        todos = await DbToDo.GetAllToDo();
     }
 }

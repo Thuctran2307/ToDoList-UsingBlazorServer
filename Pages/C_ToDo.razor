@@ -1,0 +1,169 @@
+<div class="container-addtodo is-flex is-flex-direction-column box has-border" style="gap:20px;">
+    <div class="field is-flex is-justify-content-space-between is-marginless " style="gap: 50px;">
+
+        <div class="is-flex is-flex-direction-row is-flex-grow-5 " style="gap: 10px;">
+
+            @if (isEdit)
+            {
+                <label class="is-flex-grow-1 is-marginless is-flex is-align-items-center "
+                    style="display: inline-block; max-width: fit-content;">Tên công việc</label>
+
+                <div class="is-flex-grow-4">
+                    <input class="input" type="text" placeholder="Text input" @bind=Model.title>
+                </div>
+            }
+            
+                <label class="is-flex-grow-1 is-marginless is-flex is-align-items-center" style="display: inline-block; max-width: fit-content;">
+                    @Model.title
+                </label>
+        </div>
+
+
+        <div class="is-flex is-justify-content-space-between is-flex-grow-1">
+            <div class="field is-flex is-small is-marginless " style="gap: 10px;">
+
+                @if (isEdit)
+                {
+                    <label class="is-marginless is-flex is-align-items-center"
+                        style="font-size: 0.8em; display: inline-block; max-width: fit-content;">Độ ưu tiên</label>
+                }
+            
+                    <div class="control is-flex is-flex is-align-items-center ">
+                        <div class="select is-small ">
+                            <select @bind=Model.priority>
+                                <option class="is-small">Bình thường</option>
+                                <option class="is-small">Quan trọng</option>
+                                <option class="is-small">Rất Quan trọng</option>
+                            </select>
+                        </div>
+                    </div>
+                
+
+            </div>
+
+            <div class="field is-flex is-small is-marginless " style="gap: 10px;">
+                @if (isEdit)
+                {
+                    <label class="is-marginless is-flex is-align-items-center"
+                        style="font-size: 0.8em; display: inline-block; max-width: fit-content;">Bắt đầu</label>
+                }
+                
+                    <div class="control is-flex is-flex is-align-items-center ">
+                        <div class="select is-small ">
+                            <select @bind=Model.timeStart>
+                                <option class="is-small">7:00</option>
+                                <option class="is-small">8:00</option>
+                            </select>
+                        </div>
+                    </div>
+                
+
+            </div>
+
+            <div class="field is-flex is-small is-marginless " style="gap: 10px;">
+
+                @if (isEdit)
+                {
+                    <label class="is-marginless is-flex is-align-items-center"
+                        style="font-size: 0.8em; display: inline-block; max-width: fit-content;">Kết Thúc</label>
+                }
+                
+                    <div class="control is-flex is-flex is-align-items-center ">
+                        <div class="select is-small ">
+                            <select @bind=Model.timeEnd>
+                                <option class="is-small">10:00</option>
+                                <option class="is-small">12:00</option>
+                            </select>
+                        </div>
+                    </div>
+                
+
+            </div>
+
+            <div class="field is-flex is-small is-marginless " style="gap: 10px;">
+                @if(isEdit){
+                    <label class="is-marginless is-flex is-align-items-center"
+                    style="font-size: 0.8em; display: inline-block; max-width: fit-content;">Tình Trạng</label>
+                }
+                
+                    <div class="control is-flex is-flex is-align-items-center ">
+                    <div class="select is-small ">
+                        <select @bind=Model.status>
+                            <option class="is-small">To do</option>
+                            <option class="is-small">Pending</option>
+                            <option class="is-small">Doing</option>
+                            <option class="is-small">Done</option>
+                            <option class="is-small">Cancel</option>
+                        </select>
+                    </div>
+                </div>
+                
+            </div>
+        </div>
+    </div>
+
+    @if(isEdit){
+        <div class="is-flex is-flex-direction-row" style="gap: 10px;">
+        <label class="is-flex-grow-1 is-marginless is-flex is-align-items-center "
+            style="display: inline-block; max-width: fit-content;">Mô tả</label>
+        <div class="is-flex-grow-4">
+            <input class="input" type="text" placeholder="Text input" @bind=Model.description>
+        </div>
+    </div>
+
+    <div class="is-flex is-flex-direction-row" style="gap: 10px;">
+        <label class="checkbox">
+            <input type="checkbox">
+            Công việc lặp
+        </label>
+    </div>
+
+
+    <div class="control is-flex" style="margin-left:auto">
+        <button class="button is-primary" @onclick="AddWork"> Cập Nhập Công việc
+        </button>
+
+        <div class="button" @onclick="CancelWork">
+            <span class="button is-ghost has-text-link has-text-weight-normal">
+                <span class="font_14" > Huỷ </span>
+            </span>
+        </div>
+    </div>
+    }
+
+    @if(!isEdit){
+        <div style="margin-left:auto">
+        <button class="button is-info" >Chỉnh sửa</button> 
+        <button class="button is-danger">Xoá</button>
+        </div>
+    }
+    
+    
+
+</div>
+@code {
+
+    [Parameter] public ToDo Model { get; set; }
+
+    [Parameter] public bool isEdit { get; set; }
+
+    [Parameter] public EventCallback<string> OnCancel { get; set; }
+
+    [Parameter] public EventCallback<string> OnUpdate { get; set; }
+
+    private async void AddWork()
+    {
+        ToDo todo = new ToDo("111", Model.title, Model.description,Model.status, Model.priority,Model.timeStart, Model.timeEnd);
+        await DbToDo.AddToDo(todo);
+        await OnUpdate.InvokeAsync(Model.id);
+        isEdit = false;
+        Console.WriteLine("Add Work");
+    }
+
+    private async void CancelWork()
+    {
+        Console.WriteLine("Cancel Work");
+        await OnCancel.InvokeAsync(Model.id);
+    }
+
+}
