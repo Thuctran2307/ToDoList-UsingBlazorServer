@@ -152,7 +152,7 @@
         </div>
     }
 
-    @if (!isEdit)
+    @if (!isEdit && isCheckOut == false)
     {
         <div style="margin-left:auto">
             <button class="button is-info" @onclick="EditTodo">Chỉnh sửa</button>
@@ -165,7 +165,7 @@
 </div>
 @code {
 
-    [Parameter] public ToDo? Model { get; set; }
+    [Parameter] public ToDo Model { get; set; }
 
     [Parameter] public bool isEdit { get; set; }
 
@@ -173,10 +173,14 @@
 
     [Parameter] public EventCallback<string> OnUpdate { get; set; }
 
+    [Parameter] public bool isCheckOut { get; set; }
+
     private async void AddWork()
     {
+
         if (Model == null)
             return;
+
         if (await DbToDo.CheckId(Model.id))
         {
             await DbToDo.UpdateToDo(Model);
@@ -186,8 +190,7 @@
         }
         else
         {
-            ToDo todo = new ToDo("111", Model.title, Model.description, Model.status, Model.priority, Model.timeStart,
-            Model.timeEnd);
+            ToDo todo = new ToDo(Model);
             await DbToDo.AddToDo(todo);
             await OnUpdate.InvokeAsync(Model.id);
             isEdit = false;

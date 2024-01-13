@@ -75,7 +75,12 @@
 
 
                     <div class="column is-narrow">
-                        datetimepicker
+                        <section class="section">
+                            <div class="container is-flex">
+                                <input type="date" class="input" id="date" name="date" @bind="date" />
+                                <button @onclick="ReloadToDo" class="button is-primary">Get ToDo</button>
+                            </div>
+                        </section>
                     </div>
 
                 </div>
@@ -106,14 +111,14 @@
                 @foreach (var item in todos)
                 {
                     <tr>
-                        <C_ToDo Model=item isEdit="false" OnCancel="CancelToDo" OnUpdate="UpdateToDo" > </C_ToDo>
+                        <C_ToDo Model=item isEdit="false" OnCancel="CancelToDo" OnUpdate="UpdateToDo" isCheckOut="@toDoInDay.isCheckOut"> </C_ToDo>
                     </tr>
                 }
 
                 @foreach (var item in list_temp_todo)
                 {
                     <tr>
-                        <C_ToDo Model=item isEdit="true" OnCancel="CancelToDo" OnUpdate="UpdateToDo" > </C_ToDo>
+                        <C_ToDo Model=item isEdit="true" OnCancel="CancelToDo" OnUpdate="UpdateToDo"> </C_ToDo>
                     </tr>
                 }
             </table>
@@ -129,14 +134,27 @@
                     Bạn chưa có công việc cho ngày 08/01.Hãy bắt đầu tạo công việc thôi nào!
                 </div>
             </div><!--!-->
-            <div style="margin-left:auto">
-                <button @onclick="AddToDo" class="button is-primary">Thêm công việc</button>
+
+            @if(!toDoInDay.isCheckOut){
+                <div style="margin-left:auto;" class="is-flex is-justify-content-space-around">
+                <button @onclick="AddToDo" class="button is-primary" style="margin-right: 30px">Thêm công việc</button>
+                @if (todos.Count > 0)
+                {
+                    if (!toDoInDay.isCheckIn)
+                    {
+                        <button class="button is-danger" @onclick="CheckIn" >Check In</button>
+                    }
+                    else
+                    {
+                        <button class="button is-danger" @onclick="CheckOut" >Check Out</button>
+                    }
+                }
             </div>
+            }
         </div>
     </div>
-
-
 </div>
+
 
 @code {
 
@@ -149,20 +167,45 @@ new DropDown.DropdownOption { Value = "option3", Text = "Option 3" }
 };
 
     public bool isEdit = true;
-
-    
-
-    public string? selectedValue { get; set; }
+    public ToDoInDay toDoInDay = new ToDoInDay();
+    public string selectedValue { get; set; }
     public List<Model.ToDo> todos = new List<Model.ToDo>();
     public List<Model.ToDo> list_temp_todo = new List<Model.ToDo>();
 
-    protected async override void OnInitialized()
+    private DateTime date = DateTime.Today;
+
+
+    private async void ReloadToDo()
     {
         todos = await DbToDo.GetAllToDo();
+        string _id = await DbToDoInDay.FindIdByDate(date.Ticks);
+        if (_id != "")
+        {
+            todos = todos.Where(x => x.idTodoInDay.Equals(_id)).ToList();
+        }
+        else{
+            todos.Clear();
+        }
     }
 
-    private void AddToDo()
+    protected async override void OnInitialized()
     {
+        ReloadToDo();
+        
+        
+        try{
+            toDoInDay = await DbToDoInDay.GetToDoInDayByDate(date.Ticks);
+            
+        }
+        catch(Exception e){
+            await DbToDoInDay.AddToDoInDay(toDoInDay);
+        }
+    }
+
+    private async void AddToDo()
+    {
+        string idToDoToDay = await DbToDoInDay.FindIdByDate(date.Ticks);
+
         list_temp_todo.Add(new Model.ToDo
             {
                 title = "",
@@ -170,19 +213,22 @@ new DropDown.DropdownOption { Value = "option3", Text = "Option 3" }
                 priority = "",
                 status = "",
                 timeStart = "",
-                timeEnd = ""
+                timeEnd = "",
+                idTodoInDay = idToDoToDay,
+                userId = "1",
             });
     }
 
     private void CancelToDo(string id)
     {
-        try{
+        try
+        {
             list_temp_todo.RemoveAt(list_temp_todo.FindIndex(x => x.id.Equals(id)));
         }
-        catch(Exception e)
+        catch (Exception e)
         {
             Console.WriteLine(e.Message);
-        
+
         }
     }
 
@@ -190,11 +236,37 @@ new DropDown.DropdownOption { Value = "option3", Text = "Option 3" }
     {
         todos = await DbToDo.GetAllToDo();
 
-        try{
+        try
+        {
             list_temp_todo.RemoveAt(list_temp_todo.FindIndex(x => x.id.Equals(id)));
         }
-        catch(Exception e){
+        catch (Exception e)
+        {
             Console.WriteLine(e.Message);
+        }
+    }
+
+    private async void CheckIn()
+    {
+        Console.WriteLine("Check In");
+        toDoInDay = await DbToDoInDay.GetToDoInDayByDate(date.Ticks);
+
+        toDoInDay.isCheckIn = true;
+
+        if(toDoInDay != null){
+            await DbToDoInDay.UpdateToDoInDay(toDoInDay);
+        }
+        
+    }
+
+    private async void CheckOut()
+    {
+        
+
+        toDoInDay = await DbToDoInDay.GetToDoInDayByDate(date.Ticks);
+        toDoInDay.isCheckOut = true;
+
+        if(await DbToDoInDay.UpdateToDoInDay(toDoInDay) != null){
         }
     }
 }

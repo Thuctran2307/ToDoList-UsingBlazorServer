@@ -12,6 +12,9 @@
   <ItemGroup Condition=" '$(ExcludeRestorePackageImports)' != 'true' ">
     <SourceRoot Include="C:\Users\vytra\.nuget\packages\" />
   </ItemGroup>
+  <ImportGroup Condition=" '$(ExcludeRestorePackageImports)' != 'true' ">
+    <Import Project="$(NuGetPackageRoot)blazordaterangepicker\4.5.0\buildTransitive\BlazorDateRangePicker.props" Condition="Exists('$(NuGetPackageRoot)blazordaterangepicker\4.5.0\buildTransitive\BlazorDateRangePicker.props')" />
+  </ImportGroup>
   <PropertyGroup Condition=" '$(ExcludeRestorePackageImports)' != 'true' ">
     <PkgAWSSDK_Core Condition=" '$(PkgAWSSDK_Core)' == '' ">C:\Users\vytra\.nuget\packages\awssdk.core\3.7.100.14</PkgAWSSDK_Core>
     <PkgAWSSDK_SecurityToken Condition=" '$(PkgAWSSDK_SecurityToken)' == '' ">C:\Users\vytra\.nuget\packages\awssdk.securitytoken\3.7.100.14</PkgAWSSDK_SecurityToken>
