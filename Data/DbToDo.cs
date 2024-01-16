@@ -17,8 +17,6 @@ namespace New.Data
 
             var result = await collection.FindAsync(filter).Result.ToListAsync();
 
-
-
             return result;
         }
 
@@ -108,6 +106,21 @@ namespace New.Data
             {
                 return false;
             }
+        }
+
+        // getall by userAssign
+
+        public static async Task<List<ToDo>> GetAllByUserAssign(string userAssign)
+        {
+            var _db = Mongo.GetDatabase();
+
+            var collection = _db.GetCollection<ToDo>(_collection);
+
+            var filter = Builders<ToDo>.Filter.Eq("userIdAssign", userAssign);
+
+            var result = await collection.FindAsync(filter).Result.ToListAsync();
+
+            return result;
         }
     }
 }

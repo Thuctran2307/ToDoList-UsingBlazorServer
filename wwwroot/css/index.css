@@ -1,10 +1,19 @@
-﻿.container-a {
+﻿*{
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+:root {
+    --background-header: #001C44;
+    --background-nav: #F8DAD0;
+    --background-content: #2D99AE;
+  }
+.container-a {
     margin: 0;
     padding: 0;
     display: flex;
     flex-direction: column;
     height: 100vh;
-    width: 100vw;
 }
 
 .content{
@@ -12,4 +21,20 @@
 }
 .nav{
     width: 100%;
+}
+.custom-header{
+    margin: 0;
+    text-align: center;
+    color: white;
+}
+
+.header-background{
+    background-color: var(--background-header);
+    color: white;
+}
+
+.background-nav{
+
+    background-color: var(--background-nav);
+    background-clip: content-box;
 }

@@ -13,11 +13,12 @@
                 </div>
             }
 
-            else{
+            else
+            {
                 <label class="is-flex-grow-1 is-marginless is-flex is-align-items-center"
-                style="display: inline-block; max-width: fit-content;">
-                @Model.title
-            </label>
+                    style="display: inline-block; max-width: fit-content;">
+                    @Model.title
+                </label>
             }
         </div>
 
@@ -25,25 +26,49 @@
         <div class="is-flex is-justify-content-space-between is-flex-grow-1">
             <div class="field is-flex is-small is-marginless " style="gap: 10px;">
 
-                @if (isEdit)
+                @if (!isAssign)
+                {
+
+                    @if (isEdit)
+                    {
+                        <label class="is-marginless is-flex is-align-items-center"
+                            style="font-size: 0.8em; display: inline-block; max-width: fit-content;">Độ ưu tiên</label>
+                        <div class="control is-flex is-flex is-align-items-center ">
+                            <div class="select is-small ">
+                                <select @bind=Model.priority>
+                                    <option class="is-small">Bình thường</option>
+                                    <option class="is-small">Quan trọng</option>
+                                    <option class="is-small">Rất Quan trọng</option>
+                                </select>
+                            </div>
+                        </div>
+                    }
+                    else
+                    {
+                        <label class="is-marginless is-flex is-align-items-center"
+                            style="font-size: 0.8em; display: inline-block; max-width: fit-content; color: green;">@Model.priority</label>
+                    }
+                }
+                else
                 {
                     <label class="is-marginless is-flex is-align-items-center"
-                        style="font-size: 0.8em; display: inline-block; max-width: fit-content;">Độ ưu tiên</label>
+                        style="font-size: 0.8em; display: inline-block; max-width: fit-content;">Chọn người giao
+                        việc</label>
                     <div class="control is-flex is-flex is-align-items-center ">
-                    <div class="select is-small ">
-                        <select @bind=Model.priority>
-                            <option class="is-small">Bình thường</option>
-                            <option class="is-small">Quan trọng</option>
-                            <option class="is-small">Rất Quan trọng</option>
-                        </select>
+                        <div class="select is-small ">
+                            <select @bind=user_name_to_assgin>
+                                @foreach (var user in listUser)
+                                {
+                                    if(user.idUser != UserService.UserId)
+                                    {
+                                        <option class="is-small">@user.username</option>
+                                    }
+                                }
+                            </select>
+                        </div>
                     </div>
-                </div>
                 }
-                else{
-                    <label class="is-marginless is-flex is-align-items-center"
-                    style="font-size: 0.8em; display: inline-block; max-width: fit-content; color: green;">@Model.priority</label>
-                }
-                
+
 
 
             </div>
@@ -53,24 +78,26 @@
                 {
                     <label class="is-marginless is-flex is-align-items-center"
                         style="font-size: 0.8em; display: inline-block; max-width: fit-content;">Bắt đầu</label>
-                }
-
-                <div class="control is-flex is-flex is-align-items-center ">
-                    <div class="select is-small ">
-                        <select @bind=Model.timeStart>
-                            @for (int hour = 8; hour <= 23; hour++)
-                            {
-                                for (int minute = 0; minute < 60; minute += 30)
+                    <div class="control is-flex is-flex is-align-items-center ">
+                        <div class="select is-small ">
+                            <select @bind=Model.timeStart>
+                                @for (int hour = 8; hour <= 23; hour++)
                                 {
-                                    <option class="is-small">@($"{hour:D2}:{minute:D2}")</option>
+                                    for (int minute = 0; minute < 60; minute += 30)
+                                    {
+                                        <option class="is-small">@($"{hour:D2}:{minute:D2}")</option>
+                                    }
                                 }
-                            }
-                        </select>
+                            </select>
 
+                        </div>
                     </div>
-                </div>
-
-
+                }
+                else
+                {
+                    <label class="is-marginless is-flex is-align-items-center"
+                        style="font-size: 0.8em; display: inline-block; max-width: fit-content; color: blue;">@Model.timeStart</label>
+                }
             </div>
 
             <div class="field is-flex is-small is-marginless " style="gap: 10px;">
@@ -79,44 +106,70 @@
                 {
                     <label class="is-marginless is-flex is-align-items-center"
                         style="font-size: 0.8em; display: inline-block; max-width: fit-content;">Kết Thúc</label>
+                    <div class="control is-flex is-flex is-align-items-center ">
+                        <div class="select is-small ">
+                            <select @bind=Model.timeEnd>
+                                @for (int hour = 8; hour <= 23; hour++)
+                                {
+                                    for (int minute = 0; minute < 60; minute += 30)
+                                    {
+                                        <option class="is-small">@($"{hour:D2}:{minute:D2}")</option>
+                                    }
+                                }
+                            </select>
+
+                        </div>
+                    </div>
+                }
+                else
+                {
+                    <label class="is-marginless is-flex is-align-items-center"
+                        style="font-size: 0.8em; display: inline-block; max-width: fit-content; color: red;">@Model.timeEnd</label>
                 }
 
-                <div class="control is-flex is-flex is-align-items-center ">
-                    <div class="select is-small ">
-                        <select @bind=Model.timeEnd>
-                            @for (int hour = 8; hour <= 23; hour++)
-                            {
-                                for (int minute = 0; minute < 60; minute += 30)
-                                {
-                                    <option class="is-small">@($"{hour:D2}:{minute:D2}")</option>
-                                }
-                            }
-                        </select>
 
-                    </div>
-                </div>
 
 
             </div>
 
             <div class="field is-flex is-small is-marginless " style="gap: 10px;">
-                @if (isEdit)
+
+
+                @if (!isAssign)
+                {
+                    @if (isEdit)
+                    {
+                        <label class="is-marginless is-flex is-align-items-center"
+                            style="font-size: 0.8em; display: inline-block; max-width: fit-content;">Tình Trạng</label>
+                    }
+
+                    <div class="control is-flex is-flex is-align-items-center ">
+                        <div class="select is-small ">
+                            <select @bind=Model.status>
+                                <option class="is-small">To do</option>
+                                <option class="is-small">Pending</option>
+                                <option class="is-small">Doing</option>
+                                <option class="is-small">Done</option>
+                                <option class="is-small">Cancel</option>
+                            </select>
+                        </div>
+                    </div>
+                }
+                else
                 {
                     <label class="is-marginless is-flex is-align-items-center"
-                        style="font-size: 0.8em; display: inline-block; max-width: fit-content;">Tình Trạng</label>
+                        style="font-size: 0.8em; display: inline-block; max-width: fit-content;">Ngày giao việc</label>
+                    <div class="control is-flex is-flex is-align-items-center ">
+                        <div class="select is-small ">
+
+                            <div class="container">
+                                <input type="date" class="input" id="date" name="date" @bind="date" />
+                            </div>
+
+                        </div>
+                    </div>
                 }
 
-                <div class="control is-flex is-flex is-align-items-center ">
-                    <div class="select is-small ">
-                        <select @bind=Model.status>
-                            <option class="is-small">To do</option>
-                            <option class="is-small">Pending</option>
-                            <option class="is-small">Doing</option>
-                            <option class="is-small">Done</option>
-                            <option class="is-small">Cancel</option>
-                        </select>
-                    </div>
-                </div>
 
             </div>
         </div>
@@ -165,9 +218,18 @@
 </div>
 @code {
 
+    List<DropDown.DropdownOption> listPriority = new List<DropDown.DropdownOption>
+{
+new DropDown.DropdownOption { Value = "1", Text = "Bình Thường" },
+new DropDown.DropdownOption { Value = "2", Text = "Quan Trọng" },
+new DropDown.DropdownOption { Value = "3", Text = "Rất Quan Trọng" }
+};
+
     [Parameter] public ToDo Model { get; set; }
 
     [Parameter] public bool isEdit { get; set; }
+
+    [Parameter] public bool isAssign { get; set; }
 
     [Parameter] public EventCallback<string> OnCancel { get; set; }
 
@@ -175,11 +237,32 @@
 
     [Parameter] public bool isCheckOut { get; set; }
 
+    public List<User> listUser { get; set; } = new List<User>();
+    private DateTime date ;
+    private string user_name_to_assgin = "";
+
+    // onInitalinze
+    protected override async Task OnInitializedAsync()
+    {
+        date = DateTime.FromFileTimeUtc(await DbToDoInDay.GetDateById(Model.idTodoInDay));
+        var user = await DbUser.GetUserById(Model.userId);
+        user_name_to_assgin = user.username;
+        listUser = await DbUser.GetAllUser();
+    }
+
     private async void AddWork()
     {
 
         if (Model == null)
             return;
+
+
+        if (Model.title == null || Model.title == "" || String.Compare(Model.timeStart, Model.timeEnd) > 0 || Model.priority ==
+        null || Model.status == null)
+        {
+            Console.WriteLine("Title is null");
+            return;
+        }
 
         if (await DbToDo.CheckId(Model.id))
         {
@@ -191,6 +274,33 @@
         else
         {
             ToDo todo = new ToDo(Model);
+            if(isAssign)
+            {
+                todo.userIdAssign = Model.userId;
+                todo.userId = await DbUser.GetIdByUsername(user_name_to_assgin);
+                
+                var listToDoInDay = await DbToDoInDay.GetAllToDoInDay();
+                var rs = listToDoInDay.Where(x => x.idUser == todo.userId && x.date == date.Ticks).FirstOrDefault<ToDoInDay>();
+        
+                if(rs == null)
+                {
+                    rs = new ToDoInDay(){
+                        idUser = todo.userId,
+                        date = date.Ticks
+                    };
+                    await DbToDoInDay.AddToDoInDay(rs);
+                    todo.idTodoInDay = rs.id;
+                }
+                else
+                {
+                    if(rs.isCheckOut == true)
+                    {
+                        Console.WriteLine("User is checkout");
+                        return;
+                    }
+                    todo.idTodoInDay = rs.id;
+                }
+            }
             await DbToDo.AddToDo(todo);
             await OnUpdate.InvokeAsync(Model.id);
             isEdit = false;
@@ -200,7 +310,7 @@
 
     private async void CancelWork()
     {
-        if(Model == null)
+        if (Model == null)
         {
             return;
         }
@@ -221,5 +331,11 @@
         await DbToDo.DeleteToDoById(Model.id);
         await OnUpdate.InvokeAsync(Model.id);
         Console.WriteLine("Delete Work");
+    }
+
+    private async void UpdateStatus(ChangeEventArgs e)
+    {
+        await DbToDo.UpdateToDo(Model);
+        Console.WriteLine("Update Status");
     }
 }

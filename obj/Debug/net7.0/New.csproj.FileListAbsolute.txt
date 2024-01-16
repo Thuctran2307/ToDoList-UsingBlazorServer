@@ -41,5 +41,4 @@ D:\c#\New\bin\Debug\net7.0\runtimes\linux\native\libmongocrypt.so
 D:\c#\New\bin\Debug\net7.0\runtimes\osx\native\libmongocrypt.dylib
 D:\c#\New\bin\Debug\net7.0\runtimes\win\native\mongocrypt.dll
 D:\c#\New\obj\Debug\net7.0\New.csproj.CopyComplete
-D:\c#\New\obj\Debug\net7.0\New.sourcelink.json
 D:\c#\New\bin\Debug\net7.0\BlazorDateRangePicker.dll

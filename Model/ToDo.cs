@@ -19,6 +19,8 @@ namespace New.Model
         public bool isCheckOut;
 
         public string idTodoInDay;
+
+        public string userIdAssign;
         // contructor
 
         public ToDo()
@@ -33,6 +35,7 @@ namespace New.Model
             this.priority = "";
             this.isCheckOut = false;
             this.idTodoInDay = "";
+            this.userIdAssign = "";
         }
 
         public ToDo(string userId, string title, string description, string status, string priority, string timeStart, string timeEnd, string idTodoInDay)
@@ -47,6 +50,7 @@ namespace New.Model
             this.priority = priority;
             this.isCheckOut = false;
             this.idTodoInDay = idTodoInDay;
+            this.userIdAssign = "";
         }
 
         public ToDo(ToDo model){
@@ -60,6 +64,7 @@ namespace New.Model
             this.priority = model.priority;
             this.isCheckOut = model.isCheckOut;
             this.idTodoInDay = model.idTodoInDay;
+            this.userIdAssign = model.userIdAssign;
         }
 
     }

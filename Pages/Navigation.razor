@@ -1,0 +1,15 @@
+<aside class="menu" >
+  <ul class="menu-list">
+    <li><a @onclick="() => ChangePage(true)" >Tạo công việc</a></li>
+    <li><a @onclick="() => ChangePage(false)">Giao việc</a></li>
+  </ul>
+</aside>
+
+@code{
+    [Parameter] public EventCallback<bool> changePage {get; set;}
+
+    private void ChangePage(bool isPageToDo)
+    {
+        changePage.InvokeAsync(isPageToDo);
+    }
+}

@@ -1,14 +1,14 @@
-﻿@page "/"
+﻿@page "/home"
+
 
 <div class="container-a">
-
-    <div class="header">
+    <div class="header header-background">
 
         <div class="nav">
 
             <div class="is-flex is-align-items-center">
 
-                <h1 class="title is-secondary-40 has-text-weight-bold mb-0 mr-6 is-flex-grow-1">TODOLIST</h1>
+                <h1 class="title is-secondary-40 has-text-weight-bold mb-0 is-flex-grow-1 custom-header">TODOLIST</h1>
 
 
                 <div class="is-flex is-align-items-center is-justify-content-space-between is-flex-grow-5">
@@ -29,7 +29,8 @@
                                             <span class="icon font_12 is-secondary-40"><i
                                                     class="material-icons-outlined">add_task</i></span>
                                             <span class="font_12 is-secondary-10 has-text-weight-semibold ml-1">Việc
-                                                được giao <span class="is-secondary-40 has-text-weight-normal">chờ xác
+                                                được giao <span class="is-secondary-40 has-text-weight-normal">chờ
+                                                    xác
                                                     nhận của 7 ngày tiếp theo</span></span>
                                         </span>
                                     </div>
@@ -37,8 +38,10 @@
                                         <span class="icon-text">
                                             <span class="icon font_12 is-secondary-40"><i
                                                     class="material-icons-outlined">assignment</i></span>
-                                            <span class="font_12 is-secondary-10 has-text-weight-semibold ml-1">Việc đã
-                                                giao <span class="is-secondary-40 has-text-weight-normal">chờ xác nhận
+                                            <span class="font_12 is-secondary-10 has-text-weight-semibold ml-1">Việc
+                                                đã
+                                                giao <span class="is-secondary-40 has-text-weight-normal">chờ xác
+                                                    nhận
                                                     của 7 ngày tiếp theo</span></span>
                                         </span>
                                     </div>
@@ -92,36 +95,75 @@
 
 
 
-    <div class="content" style="margin-top:30px">
-        <div>
-            <table class="table is-flex is-flex-direction-column" style="gap:20px">
-
-                <thead>
-                    <tr class="is-flex">
-                        <th style="width: 72%;">Danh sách công việc</th>
-                        <th style="width: 7%;">Độ ưu tiên</th>
-                        <th style="width: 7%;">Bắt đầu</th>
-                        <th style="width: 7%;">Kết thúc</th>
-                        <th style="width: 7%;">Tình trạng</th>
-                    </tr>
 
 
-                </thead>
+    <div class="content columns" style="overflow: scroll;">
+        <div class="column is-2 background-nav">
+            <Navigation changePage="changePage"></Navigation>
+        </div>
+        <div class="column">
+            @if (isPageToDo)
+            {
+                <table class="table is-flex is-flex-direction-column" style="gap:20px">
 
-                @foreach (var item in todos)
-                {
-                    <tr>
-                        <C_ToDo Model=item isEdit="false" OnCancel="CancelToDo" OnUpdate="UpdateToDo" isCheckOut="@toDoInDay.isCheckOut"> </C_ToDo>
-                    </tr>
-                }
+                    <thead>
+                        <tr class="is-flex">
+                            <th style="width: 72%;">Danh sách công việc</th>
+                            <th style="width: 7%;">Độ ưu tiên</th>
+                            <th style="width: 7%;">Bắt đầu</th>
+                            <th style="width: 7%;">Kết thúc</th>
+                            <th style="width: 7%;">Tình trạng</th>
+                        </tr>
+                    </thead>
 
-                @foreach (var item in list_temp_todo)
-                {
-                    <tr>
-                        <C_ToDo Model=item isEdit="true" OnCancel="CancelToDo" OnUpdate="UpdateToDo"> </C_ToDo>
-                    </tr>
-                }
-            </table>
+                    @foreach (var item in todos)
+                    {
+                        <tr>
+                            <C_ToDo Model=item isEdit="false" OnCancel="CancelToDo" OnUpdate="UpdateToDo"
+                                isCheckOut="@toDoInDay.isCheckOut"> </C_ToDo>
+                        </tr>
+                    }
+
+                    @foreach (var item in list_temp_todo)
+                    {
+                        <tr>
+                            <C_ToDo Model=item isEdit="true" OnCancel="CancelToDo" OnUpdate="UpdateToDo"> </C_ToDo>
+                        </tr>
+                    }
+                </table>
+            }
+            else
+            {
+                // giao việc
+                <table class="table is-flex is-flex-direction-column" style="gap:20px">
+
+                    <thead>
+                        <tr class="is-flex">
+                            <th style="width: 72%;">Tiêu đề</th>
+                            <th style="width: 7%;">Người được giao</th>
+                            <th style="width: 7%;">Kết thúc</th>
+                            <th style="width: 7%;">Tình trạng</th>
+                            <th style="width: 7%;">Trạng thái</th>
+                        </tr>
+                    </thead>
+                    @foreach (var item in list_assign)
+                    {
+                        <tr>
+                            <C_ToDo Model=item isEdit="false" OnCancel="CancelToDo" OnUpdate="UpdateToDo"
+                                isCheckOut="@toDoInDay.isCheckOut" isAssign> </C_ToDo>
+                        </tr>
+                    }
+
+                    @foreach (var item in list_temp_todo_assign)
+                    {
+                        <tr>
+                            <C_ToDo Model=item isEdit="true" OnCancel="CancelToDo" OnUpdate="UpdateToDo" isAssign> </C_ToDo>
+                        </tr>
+                    }
+
+                </table>
+
+            }
         </div>
     </div>
 
@@ -135,26 +177,28 @@
                 </div>
             </div><!--!-->
 
-            @if(!toDoInDay.isCheckOut){
+            @if (!toDoInDay.isCheckOut)
+            {
                 <div style="margin-left:auto;" class="is-flex is-justify-content-space-around">
-                <button @onclick="AddToDo" class="button is-primary" style="margin-right: 30px">Thêm công việc</button>
-                @if (todos.Count > 0)
-                {
-                    if (!toDoInDay.isCheckIn)
+                    <button @onclick="AddToDo" class="button is-primary" style="margin-right: 30px">Thêm công
+                        việc</button>
+                    @if (todos.Count > 0)
                     {
-                        <button class="button is-danger" @onclick="CheckIn" >Check In</button>
+                        if (!toDoInDay.isCheckIn)
+                        {
+                            <button class="button is-danger" @onclick="CheckIn">Check In</button>
+                        }
+                        else
+                        {
+                            <button class="button is-danger" @onclick="CheckOut">Check Out</button>
+                        }
                     }
-                    else
-                    {
-                        <button class="button is-danger" @onclick="CheckOut" >Check Out</button>
-                    }
-                }
-            </div>
+                </div>
             }
         </div>
     </div>
-</div>
 
+</div>
 
 @code {
 
@@ -167,83 +211,139 @@ new DropDown.DropdownOption { Value = "option3", Text = "Option 3" }
 };
 
     public bool isEdit = true;
-    public ToDoInDay toDoInDay = new ToDoInDay();
+
+    private string userId = "";
+    public ToDoInDay toDoInDay = new();
     public string selectedValue { get; set; }
     public List<Model.ToDo> todos = new List<Model.ToDo>();
+
+    public List<Model.ToDo> list_assign = new List<Model.ToDo>();
+
     public List<Model.ToDo> list_temp_todo = new List<Model.ToDo>();
 
+    public List<Model.ToDo> list_temp_todo_assign = new List<Model.ToDo>();
+
     private DateTime date = DateTime.Today;
+
+    public bool isPageToDo = true;
 
 
     private async void ReloadToDo()
     {
-        todos = await DbToDo.GetAllToDo();
-        string _id = await DbToDoInDay.FindIdByDate(date.Ticks);
-        if (_id != "")
+        var list_toDoInDay = await DbToDoInDay.GetAllToDoInDay();
+        toDoInDay = list_toDoInDay.Where(x => x.idUser.Equals(userId) && x.date == date.Ticks).FirstOrDefault();
+
+        if (toDoInDay == null)
         {
-            todos = todos.Where(x => x.idTodoInDay.Equals(_id)).ToList();
+            toDoInDay = new ToDoInDay(){
+                idUser = userId
+            };
         }
-        else{
-            todos.Clear();
+        if (isPageToDo)
+        {
+            todos = await DbToDo.GetAllToDo();
+            string _id = await DbToDoInDay.FindIdByDate(date.Ticks);
+            if (_id != "")
+            {
+                todos = todos.Where(x => x.idTodoInDay.Equals(_id) && x.userId.Equals(userId)).ToList();
+            }
+            else
+            {
+                todos.Clear();
+            }
+        }
+        else
+        {
+            list_assign = await DbToDo.GetAllToDo();
+            list_assign = list_assign.Where(x => x.userIdAssign.Equals(userId)).ToList();
         }
     }
 
     protected async override void OnInitialized()
     {
+        
+        userId = UserService.UserId;
+       
+        list_assign = await DbToDo.GetAllByUserAssign(userId);
+        await DbToDoInDay.AddToDoInDay(toDoInDay);
         ReloadToDo();
-        
-        
-        try{
-            toDoInDay = await DbToDoInDay.GetToDoInDayByDate(date.Ticks);
-            
-        }
-        catch(Exception e){
-            await DbToDoInDay.AddToDoInDay(toDoInDay);
-        }
+
     }
 
     private async void AddToDo()
     {
         string idToDoToDay = await DbToDoInDay.FindIdByDate(date.Ticks);
 
-        list_temp_todo.Add(new Model.ToDo
-            {
-                title = "",
-                description = "",
-                priority = "",
-                status = "",
-                timeStart = "",
-                timeEnd = "",
-                idTodoInDay = idToDoToDay,
-                userId = "1",
-            });
+        if (isPageToDo)
+        {
+            list_temp_todo.Add(new Model.ToDo
+                {
+                    title = "",
+                    description = "",
+                    priority = "",
+                    status = "",
+                    timeStart = "",
+                    timeEnd = "",
+                    idTodoInDay = idToDoToDay,
+                    userId = userId
+                });
+        }
+        else
+        {
+            list_temp_todo_assign.Add(new Model.ToDo
+                {
+                    title = "",
+                    description = "",
+                    priority = "",
+                    status = "",
+                    timeStart = "",
+                    timeEnd = "",
+                    idTodoInDay = idToDoToDay,
+                    userId = userId
+                });
+        }
+
     }
 
     private void CancelToDo(string id)
     {
-        try
+        if (isPageToDo)
         {
-            list_temp_todo.RemoveAt(list_temp_todo.FindIndex(x => x.id.Equals(id)));
-        }
-        catch (Exception e)
-        {
-            Console.WriteLine(e.Message);
+            try
+            {
+                list_temp_todo.RemoveAt(list_temp_todo.FindIndex(x => x.id.Equals(id)));
+            }
+            catch (Exception e)
+            {
+                Console.WriteLine(e.Message);
 
+            }
+        }
+        else
+        {
+            list_temp_todo_assign.RemoveAt(list_temp_todo_assign.FindIndex(x => x.id.Equals(id)));
         }
     }
 
-    private async void UpdateToDo(string id)
+    private void UpdateToDo(string id)
     {
-        todos = await DbToDo.GetAllToDo();
+        if (isPageToDo)
+        {
+            try
+            {
+                list_temp_todo.RemoveAt(list_temp_todo.FindIndex(x => x.id.Equals(id)));
+            }
+            catch (Exception e)
+            {
+                Console.WriteLine(e.Message);
 
-        try
-        {
-            list_temp_todo.RemoveAt(list_temp_todo.FindIndex(x => x.id.Equals(id)));
+            }
         }
-        catch (Exception e)
+        else
         {
-            Console.WriteLine(e.Message);
+            list_temp_todo_assign.RemoveAt(list_temp_todo_assign.FindIndex(x => x.id.Equals(id)));
         }
+        ReloadToDo();
     }
 
     private async void CheckIn()
@@ -253,20 +353,26 @@ new DropDown.DropdownOption { Value = "option3", Text = "Option 3" }
 
         toDoInDay.isCheckIn = true;
 
-        if(toDoInDay != null){
+        if (toDoInDay != null)
+        {
             await DbToDoInDay.UpdateToDoInDay(toDoInDay);
         }
-        
+
     }
 
     private async void CheckOut()
     {
-        
 
         toDoInDay = await DbToDoInDay.GetToDoInDayByDate(date.Ticks);
         toDoInDay.isCheckOut = true;
 
-        if(await DbToDoInDay.UpdateToDoInDay(toDoInDay) != null){
+        if (await DbToDoInDay.UpdateToDoInDay(toDoInDay) != null)
+        {
         }
+    }
+
+    public void changePage(bool check)
+    {
+        isPageToDo = check;
     }
 }

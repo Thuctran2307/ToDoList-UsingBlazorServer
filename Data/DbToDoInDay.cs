@@ -87,8 +87,33 @@ namespace New.Data
             return result;
         }
 
+        // get date by id
 
+        public static async Task<long> GetDateById(string id)
+        {
+            var _db = Mongo.GetDatabase();
+            var collection = _db.GetCollection<ToDoInDay>(_collection);
 
+            var filter = Builders<ToDoInDay>.Filter.Eq("id", id);
+
+            var result = await collection.FindAsync(filter).Result.FirstOrDefaultAsync();
+
+            return result.date;
+        }
+
+        // get ToDoInDay by userId
+
+        public static async Task<List<ToDoInDay>> GetToDoInDayByUserId(string userId)
+        {
+            var _db = Mongo.GetDatabase();
+            var collection = _db.GetCollection<ToDoInDay>(_collection);
+
+            var filter = Builders<ToDoInDay>.Filter.Eq("idUser", userId);
+
+            var result = await collection.FindAsync(filter).Result.ToListAsync();
+
+            return result;
+        }
 
         
     }

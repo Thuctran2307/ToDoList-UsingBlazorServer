@@ -1,8 +1,9 @@
+using MongoDB.Bson;
 using MongoDB.Bson.Serialization.Attributes;
 
 namespace New.Model
 {
-    class User
+    public class User
     {
         [BsonId]
         public string idUser { get; set; }
@@ -10,5 +11,22 @@ namespace New.Model
         public string username { get; set; }
 
         public string password { get; set; }
+
+        // contructor
+        public User(string username, string password)
+        {
+            this.idUser = ObjectId.GenerateNewId().ToString();
+            this.username = username;
+            this.password = password;
+        }
+
+        public User()
+        {
+            this.idUser = ObjectId.GenerateNewId().ToString();
+        }
     }
+
+    
+
+    
 }

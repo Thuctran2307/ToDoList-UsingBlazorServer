@@ -13,12 +13,15 @@ namespace New.Model
 
         public bool isCheckIn { get; set; }
 
+        public string idUser { get; set; }
+
         public ToDoInDay()
         {
             this.id = MongoDB.Bson.ObjectId.GenerateNewId().ToString();
             this.date = DateTime.Today.Ticks;
             this.isCheckOut = false;
             this.isCheckIn = false;
+            this.idUser = "";
         }
         
     }
